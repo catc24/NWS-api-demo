@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather Forecast</title>
+</head>
+<body>
+    <h1>Weather Forecast</h1>
+    <div id="forecast"></div>
+
+    <script>
+        // Function to fetch and display the weather data
+        function fetchWeatherData() {
+            // Replace this with your actual API endpoint
+            const apiUrl = 'https://api.weather.gov/gridpoints/APX/81,45/forecast?units=us';
+
+            fetch(apiUrl, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/geo+json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Access the data and build the HTML content
+                const forecastData = data.properties.periods[0];
+
+                const updated = data.properties.updated;
+                const units = data.properties.units;
+                const forecastGenerator = data.properties.forecastGenerator;
+                const generatedAt = data.properties.generatedAt;
+                const updateTime = data.properties.updateTime;
+                const validTimes = data.properties.validTimes;
+                const elevation = data.properties.elevation.value;
+                const shortForecast = forecastData.shortForecast;
+
+                const forecastHtml = `
+                    <h2>${forecastData.name}</h2>
+                    <p>Updated: ${updated}</p>
+                    <p>Units: ${units}</p>
+                    <p>Forecast Generator: ${forecastGenerator}</p>
+                    <p>Generated At: ${generatedAt}</p>
+                    <p>Update Time: ${updateTime}</p>
+                    <p>Valid Times: ${validTimes}</p>
+                    <p>Elevation: ${elevation} meters</p>
+                    <p>Temperature: ${forecastData.temperature}°F</p>
+                    <p>Temperature Trend: ${forecastData.temperatureTrend}</p>
+                    <p>Probability of Precipitation: ${forecastData.probabilityOfPrecipitation.value}%</p>
+                    <p>Dewpoint: ${forecastData.dewpoint.value}°C</p>
+                    <p>Relative Humidity: ${forecastData.relativeHumidity.value}%</p>
+                    <p>Wind Speed: ${forecastData.windSpeed}</p>
+                    <p>Wind Direction: ${forecastData.windDirection}</p>
+                    <p>Short Forecast: ${shortForecast}</p>
+                    <img src="${forecastData.icon}" alt="${shortForecast}">
+                    <p>${forecastData.detailedForecast}</p>
+                `;
+
+                // Display the data on the webpage
+                document.getElementById('forecast').innerHTML = forecastHtml;
+            })
+            .catch(error => {
+                console.error('Error fetching weather data:', error);
+            });
+        }
+
+        // Call the fetchWeatherData function to load the data when the page loads
+        fetchWeatherData();
+    </script>
+</body>
+</html>
