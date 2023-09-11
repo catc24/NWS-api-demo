@@ -2,6 +2,49 @@
 <html>
 <head>
     <title>Weather Forecast</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #8f8f8f;
+            background-repeat: repeat; /* Repeat the image */
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        #forecast {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #e0e0e0;
+            padding: 20px;
+            border-radius: 30px;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-top: 0;
+        }
+
+        p {
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+      
+       .image-text-container {
+            display: flex;
+            align-items: center; /* To vertically align text and image */
+    </style>
 </head>
 <body>
     <h1>Weather Forecast</h1>
@@ -32,26 +75,31 @@
                 const validTimes = data.properties.validTimes;
                 const elevation = data.properties.elevation.value;
                 const shortForecast = forecastData.shortForecast;
+                const longForecast = forecastData.shortForecast;
 
                 const forecastHtml = `
-                    <h2>${forecastData.name}</h2>
-                    <p>Updated: ${updated}</p>
-                    <p>Units: ${units}</p>
-                    <p>Forecast Generator: ${forecastGenerator}</p>
-                    <p>Generated At: ${generatedAt}</p>
-                    <p>Update Time: ${updateTime}</p>
-                    <p>Valid Times: ${validTimes}</p>
-                    <p>Elevation: ${elevation} meters</p>
-                    <p>Temperature: ${forecastData.temperature}°F</p>
-                    <p>Temperature Trend: ${forecastData.temperatureTrend}</p>
-                    <p>Probability of Precipitation: ${forecastData.probabilityOfPrecipitation.value}%</p>
-                    <p>Dewpoint: ${forecastData.dewpoint.value}°C</p>
-                    <p>Relative Humidity: ${forecastData.relativeHumidity.value}%</p>
-                    <p>Wind Speed: ${forecastData.windSpeed}</p>
-                    <p>Wind Direction: ${forecastData.windDirection}</p>
-                    <p>Short Forecast: ${shortForecast}</p>
-                    <img src="${forecastData.icon}" alt="${shortForecast}">
-                    <p>${forecastData.detailedForecast}</p>
+                    <div id="forecast-data">
+                    <center>
+                        <h2>Units: ${units}</h2>
+                        <h1>Temperature: ${forecastData.temperature}°F</h1>
+                        <h2>Temperature Trend: ${forecastData.temperatureTrend}</h2>
+                        <h2>Probability of Precipitation: ${forecastData.probabilityOfPrecipitation.value}%</h2>
+                        <h1>Dewpoint: ${forecastData.dewpoint.value}°C</h1>
+                        <h1>Relative Humidity: ${forecastData.relativeHumidity.value}%</h1>
+                        <h1>Wind Speed: ${forecastData.windSpeed}</h1>
+                        <h1>Wind Direction: ${forecastData.windDirection}</h1>
+                        <h2>Short Forecast: ${shortForecast}</h2>
+                        <img src="${forecastData.icon}" alt="${shortForecast}">
+                        <p>${forecastData.detailedForecast}</p>
+                        <h2>${forecastData.name}</h2>
+                        <p>Updated: ${updated}</p>
+                        <p>Forecast Generator: ${forecastGenerator}</p>
+                        <p>Generated At: ${generatedAt}</p>
+                        <p>Update Time: ${updateTime}</p>
+                        <p>Valid Times: ${validTimes}</p>
+                        <p>Elevation: ${elevation} meters</p>
+                        </center>
+                    </div>
                 `;
 
                 // Display the data on the webpage
